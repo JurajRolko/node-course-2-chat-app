@@ -19,9 +19,10 @@ io.on('connection', (socket) => {
 
     socket.broadcast.emit('newMessage', generateMessage('Chat Bot', 'New user joinded this chat'));
 
-    socket.on('createMessage', (newMessage) => {
+    socket.on('createMessage', (newMessage, callback) => {
         console.log('Message from client recieved on server: ', newMessage);
         io.emit('newMessage', generateMessage(newMessage.from, newMessage.text));
+        callback('This is acknowledgment message from server');
         // socket.broadcast.emit('newMessage', {
         //     from: newMessage.from,
         //     text: newMessage.text,
